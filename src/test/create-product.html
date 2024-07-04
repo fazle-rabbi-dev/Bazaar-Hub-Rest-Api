@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Create Product</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    </head>
+    <body class="bg-gray-100">
+        <div class="container mx-auto mt-10">
+            <div class="max-w-md mx-auto bg-white p-5 rounded-md shadow-sm">
+                <h1 class="text-xl font-bold mb-5">Create Product</h1>
+                <form id="productForm" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="name">Name</label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="name"
+                            type="text"
+                            name="name"
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="description">Description</label>
+                        <textarea
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="description"
+                            name="description"
+                        ></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="price">Price</label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="price"
+                            type="number"
+                            name="price"
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="stock">Stock</label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="stock"
+                            type="number"
+                            name="stock"
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="category">Category</label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="category"
+                            type="text"
+                            name="category"
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="brand">Brand</label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="brand"
+                            type="text"
+                            name="brand"
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="image">Image</label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="image"
+                            type="file"
+                            name="image"
+                        />
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="submit"
+                        >
+                            Create Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("productForm").addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const form = event.target;
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch("http://localhost:3000/api/v1/products/x-phone-15", {
+                        method: "PATCH",
+                        body: formData,
+                        headers: {
+                            authorization: "Bearer token"
+                        }
+                    });
+
+                    if (response.ok) {
+                        alert("Product created successfully");
+                    } else {
+                        const errorData = await response.json();
+                        alert("Error creating product: " + errorData.message);
+                    }
+                } catch (error) {
+                    alert(JSON.stringify(error));
+                    alert("Error creating product: " + error.message);
+                }
+            });
+        </script>
+    </body>
+</html>

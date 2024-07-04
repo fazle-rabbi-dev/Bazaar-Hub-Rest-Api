@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Create User</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-6 text-center">Update User</h2>
+      <form id="updateUserForm" enctype="multipart/form-data">
+        <div class="mb-4">
+          <label
+            for="fullName"
+            class="block text-gray-700 font-bold mb-2"
+            >Full Name</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="fullName"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="username"
+            class="block text-gray-700 font-bold mb-2"
+            >Username</label
+          >
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label
+            for="avatar"
+            class="block text-gray-700 font-bold mb-2"
+            >Avatar</label
+          >
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div class="flex items-center justify-between">
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Update User
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("updateUserForm");
+
+        form.addEventListener("submit", async event => {
+          event.preventDefault(); // Prevent the default form submission
+
+          const formData = new FormData(form);
+          const url =
+            "http://localhost:3000/api/v1/users/66762d79e87fd03bf3b95126";
+          const token = "Bearer token"
+
+          try {
+            const response = await fetch(url, {
+              method: "PATCH",
+              headers: {
+                Authorization: `Bearer ${token}`
+              },
+              body: formData
+            });
+
+            if (response.ok) {
+              // Handle successful response
+              const data = await response.json();
+              console.log("User updated successfully:", data);
+            } else {
+              // Handle errors
+              console.error(
+                "Error updating user:",
+                response.statusText
+              );
+            }
+          } catch (error) {
+            console.error("Network error:", error);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
