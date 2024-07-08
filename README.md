@@ -1,7 +1,7 @@
 # Bazaar-Hub-Rest-Api 🛍️
 
 <div align="center">
-  <code>Built With:</code>
+  <code>Built With 👇🏾</code>
   <br />
   <br />
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="" />
@@ -101,9 +101,10 @@ If you think you need a PC to start coding, think again! With just an Android ph
 - ️🐞 **Graceful Error Handling**: Consistent and informative error responses.
 - 📃 **Documentation**: A comprehensive documentation with `swagger`.
 
-> [!WARNING]
+> [!IMPORTANT]
 > Please note that the **API Documentation** is currently a work in progress. Proper API documentation using Swagger is not yet complete. This means some endpoints may not be fully documented. 
 
+> [!NOTE]
 > *Im working on completing this documentation to provide a more comprehensive guide for using Bazaar-Hub-Rest-Api.*
 
 ### Live Demo 🎉
@@ -183,7 +184,7 @@ Ensure you have the following installed on your machine:
 
 - **📘 API Documentation:** 
   - `http://localhost:3000/api-docs`
-- **⚡ API Health Check*:*
+- **⚡ API Health Check:**
   - `http://localhost:3000/health`
 
 ## Contributing 🫱🏻‍🫲🏼
