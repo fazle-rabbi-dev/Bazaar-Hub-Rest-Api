@@ -88,12 +88,20 @@ export const getCart = asyncHandler(async (req, res) => {
 });
 
 // =====================================================================================================================
-// Update Cart Item Quantity
+// Update Cart Item Quantity [increment/decrement]
 // =====================================================================================================================
 export const updateCartItem = asyncHandler(async (req, res) => {
     const userId = req.user._id;
     const { productId, quantity } = req.body;
-
+    const { action } = req.query;
+    
+    if(!action?.trim() || !["increment", "decrement"].includes(action)){
+      throw new ApiError(
+          400,
+          "A valid action is required in the query parameter. Value can be: increment/decrement"
+        )
+    };
+    
     const existingProduct = await Product.findById(productId);
 
     if (!existingProduct) {
@@ -113,7 +121,13 @@ export const updateCartItem = asyncHandler(async (req, res) => {
 
     const productIndex = existingCart.items.findIndex(item => item.product._id.toString() === productId);
     const currentQuantity = parseInt(existingCart.items[productIndex].quantity);
-    const newQuantity = currentQuantity + parseInt(quantity);
+    
+    let newQuantity;
+    if(action === "increment"){
+      newQuantity = currentQuantity + parseInt(quantity);
+    } else {
+      newQuantity = currentQuantity - parseInt(quantity);
+    }
 
     existingCart.items[productIndex].quantity = newQuantity;
     await existingCart.save();
